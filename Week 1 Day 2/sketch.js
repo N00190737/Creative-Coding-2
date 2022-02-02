@@ -1,22 +1,28 @@
 let distance =  23;
 let rectX = 20;
 let rectY =20;
-let rectWidth =50;
-let rectHeight =50;
 let numBoxs = 5;
 let spacing = 5;
+let numRows = 5;
+let numCols = 5;
+let width = 500;
+let height = 500;
 
-clap(69,420);
+
+clap(1,10);
 
 function setup(){
-    createCanvas(500,500);
+    createCanvas(width,height);
     background(0);
+    
 }
 
+
+
 function draw(){
-    fill(0,255,0);
-    noStroke();
-    drawBoxs();
+    fill(255,0,0);
+    stroke(255);
+    drawGrid();
 }
 
 function drawBoxs(){
@@ -37,4 +43,12 @@ function addMeUp(num01,num02){
     let total = num01 + num02;
     console.log("Calculation is complete my guy");
     return total;
+}
+
+function drawGrid(){
+        for(let i; i<numBoxs; i++){
+            let rectWidth = width/numBoxs;
+            let rectHeight = height/numBoxs;
+            rect(rectX,rectY,rectWidth,rectHeight)
+        }
 }

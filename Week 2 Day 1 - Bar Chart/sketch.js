@@ -22,7 +22,7 @@ function draw() {
     translate(50,450);
 
     stroke(255,200);
-    strokeWeight(2);
+    strokeWeight(1);
     line(0, 0, 0, -400);
     line(0, 0, 400, 0);
 
@@ -34,7 +34,7 @@ function draw() {
         for (let i = 0; i <= numSideLines; i++) {
             line(0, -sideLines * i, -numSideLines, -sideLines * i);
             textAlign(CENTER, CENTER);
-            text(i * sideLines, -30, -sideLines * i)
+            text(i * sideLines, -30, -sideLines * i + 2)
     }
 
     translate(margin, 0);
@@ -44,7 +44,10 @@ function draw() {
     // rect((barWidth+spacing)*2, 0, barWidth, -data[2]);
 
     for (let i = 0; i < data.length; i++) {
+        dataX = chartWidth / data.length;
+        dataY = chartHeight / data.length;
         rect((barWidth+spacing)*i, 0, barWidth, -data[i]);
+        textAlign(CENTER, CENTER);
+        text(data[i], dataX * i + margin, data[i])
     }
-
 } 

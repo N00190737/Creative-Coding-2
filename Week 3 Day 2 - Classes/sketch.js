@@ -1,6 +1,6 @@
 let data = [
-    {name: "Oranges", total: 63}, 
-    {name: "Bananas", total: 33},
+    {name: "Bananas", total: 63}, 
+    {name: "Oranges", total: 33},
     {name: "Pears", total: 21}, 
     {name: "Apples", total: 43}
 ];

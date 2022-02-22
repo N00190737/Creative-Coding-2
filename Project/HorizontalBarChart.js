@@ -62,8 +62,8 @@ class HorizontalBarChart {
         //chart
         stroke(255, 180);
         strokeWeight(1);
-        line(0, 0, 0, -this.chartHeight); //y
-        line(0, 0, this.chartWidth, 0); //x
+        line(0, 0, 0, -this.chartWidth); //y
+        line(0, 0, this.chartHeight, 0); //x
 
         //title
         if (this.showTitle) {
@@ -99,7 +99,7 @@ class HorizontalBarChart {
             //vertical lines
             stroke(255, 50);
             strokeWeight(1);
-            line(i * this.tickSpacing, 0, this.tickSpacing * i, -this.chartHeight);
+            line(i * this.tickSpacing, 0, this.tickSpacing * i, -this.chartWidth);
         }
     }
 

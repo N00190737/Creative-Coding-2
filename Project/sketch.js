@@ -23,7 +23,7 @@ function setup() {
     chart02 = new HorizontalBarChart(data01);
     chart02.chartWidth = 300;
     chart02.chartHeight = 300;
-    chart02.posX = 600;
+    chart02.posX = 450;
     chart02.posY = 400;
     chart02.title = "Horizontal Bar Chart";
     chart02.updateValues();

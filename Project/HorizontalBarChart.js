@@ -2,7 +2,7 @@ class HorizontalBarChart {
     constructor(_data) {
         this.data = _data;
 
-        this.spacing = 5;
+        this.spacing = 10;
         this.margin = 30;
         this.numTicks = 10;
         this.posX = 50;
@@ -16,6 +16,9 @@ class HorizontalBarChart {
         this.numPlaces = 0;
         this.titleSpacing = 25;
         this.labelSpacing = 15;
+        this.titleSpacing = 25;
+        this.yAxis = "Copies Sold";
+        this.yAxisSpacing = 50;
 
         this.chartWidth;
         this.chartHeight;
@@ -26,16 +29,14 @@ class HorizontalBarChart {
         this.availableWidth;
 
         this.updateValues();
-        this.calculateMaxValue();
+
     }
 
     updateValues() {
         this.tickSpacing = this.chartHeight / this.numTicks;
         this.availableWidth = this.chartWidth - (this.margin * 2) - (this.spacing * (this.data.length - 1));
         this.barWidth = this.availableWidth / this.data.length;
-    }
 
-    calculateMaxValue() {
         let listValues = this.data.map(function(x) { return x.total })
         this.maxValue = max(listValues);
         this.tickIncrements = this.maxValue / this.numTicks;
@@ -73,8 +74,31 @@ class HorizontalBarChart {
             textAlign(CENTER, BOTTOM);
             text(this.title, this.chartWidth / 2, -this.chartHeight - this.titleSpacing);
         }
+
+        if(this.showCategories) {
+            //Side Categories
+            push()
+                noStroke();
+                textSize(this.categoryFontSize);
+                textAlign(CENTER, CENTER);
+                textStyle(BOLD);
+                rotate(3 * PI / 2);
+                text(this.yAxis, this.chartHeight / 2, -this.yAxisSpacing);
+            pop()
+        }
+
+            //Bottom Categories
+            push()
+                noStroke();
+                textSize(this.categoryFontSize);
+                textStyle(BOLD);
+                textAlign(CENTER, CENTER);
+                text(this.xAxis, this.chartWidth / 2, this.xAxisSpacing);
+            pop()
+
     }
 
+    
     drawTicks() {
         for (let i = 0; i <= this.numTicks; i++) {
             //ticks

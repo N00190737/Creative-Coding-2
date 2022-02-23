@@ -2,19 +2,32 @@ class VerticalBarChart {
     constructor(_data) {
         this.data = _data;
 
-        this.spacing = 5;
+        this.spacing = 10;
         this.margin = 30;
         this.numTicks = 10;
         this.posX = 50;
         this.posY = 100;
-        this.colors = [color('#8cfeff'), color('#9cecbd'), color('#eaaf6a'), color('#fc8980')];
+        this.colors = [
+                                    color('#8cfeff'),
+                                    color('#9cecbd'),
+                                    color('#eaaf6a'),
+                                    color('#fc8980'),
+                                ];
         
         this.showValues = true;
         this.showLabels = true;
         this.showTitle = true;
         this.rotateLabels = true;
+        this.showCategories = true;
         this.numPlaces = 0;
         this.titleSpacing = 25;
+        this.labelSpacing = 15;
+        this.yAxis = "Copies Sold (Millions)";
+        this.yAxisSpacing = 50;
+        this.labelSize = 14;
+        this.xAxis = "Game Names";
+        this.xAxisSpacing = 100;
+        this.categoryFontSize = 14;
 
         this.chartWidth;
         this.chartHeight;
@@ -25,16 +38,13 @@ class VerticalBarChart {
         this.availableWidth;
 
         this.updateValues();
-        this.calculateMaxValue();
     }
 
     updateValues() {
         this.tickSpacing = this.chartHeight / this.numTicks;
         this.availableWidth = this.chartWidth - (this.margin * 2) - (this.spacing * (this.data.length - 1));
         this.barWidth = this.availableWidth / this.data.length;
-    }
 
-    calculateMaxValue() {
         let listValues = this.data.map(function(x) { return x.total })
         this.maxValue = max(listValues);
         this.tickIncrements = this.maxValue / this.numTicks;
@@ -69,9 +79,32 @@ class VerticalBarChart {
             noStroke();
             fill(255);
             textSize(16);
+            textStyle(BOLD);
             textAlign(CENTER, BOTTOM);
             text(this.title, this.chartWidth / 2, -this.chartHeight - this.titleSpacing);
         }
+
+        if(this.showCategories) {
+            //Side Categories
+            push()
+                noStroke();
+                textSize(this.categoryFontSize);
+                textAlign(CENTER, CENTER);
+                textStyle(BOLD);
+                rotate(3 * PI / 2);
+                text(this.yAxis, this.chartHeight / 2, -this.yAxisSpacing);
+            pop()
+        }
+
+            //Bottom Categories
+            push()
+                noStroke();
+                textSize(this.categoryFontSize);
+                textStyle(BOLD);
+                textAlign(CENTER, CENTER);
+                text(this.xAxis, this.chartWidth / 2, this.xAxisSpacing);
+            pop()
+
     }
 
     drawTicks() {
@@ -127,25 +160,20 @@ class VerticalBarChart {
                 if (this.rotateLabels) {
                     push()
                     noStroke();
-                    textSize(14);
-                    textAlign(LEFT, CENTER);
+                    textSize(this.labelSize);
+                    textAlign(RIGHT, CENTER);
                     translate(((this.barWidth + this.spacing) * i) + this.barWidth / 2, 10);
-                    rotate(PI / 2)
+                    rotate(3 * PI / 2);
                     text(this.data[i].name, 0, 0);
                     pop()
                 } else {
-
                     noStroke();
                     fill(255);
-                    textSize(14);
+                    textSize(this.labelSize);
                     textAlign(CENTER, BOTTOM);
                     text(this.data[i].name, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, 20);
                 }
             }
-
-            
-
-
         }
         pop()
     }

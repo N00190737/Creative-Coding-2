@@ -1,4 +1,4 @@
-class BarChart {
+class StackedBarChart {
     constructor(_data) {
         this.data = _data;
 
@@ -12,7 +12,7 @@ class BarChart {
         this.showValues = true;
         this.showLabels = true;
         this.showTitle = true;
-        this.rotateLabels = true;
+        this.rotateLabels = false;
         this.numPlaces = 0;
         this.titleSpacing = 25;
 
@@ -94,13 +94,10 @@ class BarChart {
 
     drawHorizontalLines() {
         for (let i = 0; i <= this.numTicks; i++) {
-
             //horizontal line
             stroke(255, 50);
             strokeWeight(1)
             line(0, this.tickSpacing * -i, this.chartWidth, this.tickSpacing * -i);
-
-
         }
     }
 
@@ -114,6 +111,11 @@ class BarChart {
             fill(this.colors[colorNumber]);
             noStroke();
             rect((this.barWidth + this.spacing) * i, 0, this.barWidth, this.scaleData(-this.data[i].total));
+
+            // for(let j = 0; j <= data[i].length; j++) {
+
+            // }
+
 
             //numbers (text)
             noStroke();
@@ -142,10 +144,6 @@ class BarChart {
                     text(this.data[i].name, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, 20);
                 }
             }
-
-            
-
-
         }
         pop()
     }

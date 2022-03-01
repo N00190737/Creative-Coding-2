@@ -1,24 +1,36 @@
 class HorizontalBarChart {
-    constructor(_data) {
+    constructor(_data, _legend) {
         this.data = _data;
+        this.legend = _legend;
 
         this.spacing = 10;
         this.margin = 30;
         this.numTicks = 10;
         this.posX = 50;
         this.posY = 100;
-        this.colors = [color('#8cfeff'), color('#9cecbd'), color('#eaaf6a'), color('#fc8980')];
-        
+        this.colors = [
+            color('#8cfeff'),
+            color('#9cecbd'),
+            color('#eaaf6a'),
+            color('#fc8980'),
+            color('#fdda0d')
+            
+        ];
+
         this.showValues = true;
         this.showLabels = true;
         this.showTitle = true;
         this.rotateLabels = false;
+        this.showCategories = true;
         this.numPlaces = 0;
         this.titleSpacing = 25;
         this.labelSpacing = 15;
-        this.titleSpacing = 25;
-        this.yAxis = "Copies Sold";
-        this.yAxisSpacing = 50;
+        this.yAxis = "Game Names";
+        this.yAxisSpacing = 100;
+        this.labelSize = 14;
+        this.xAxis = "Copies Sold (Millions)";
+        this.xAxisSpacing = 50;
+        this.categoryFontSize = 14;
 
         this.chartWidth;
         this.chartHeight;
@@ -29,7 +41,6 @@ class HorizontalBarChart {
         this.availableWidth;
 
         this.updateValues();
-
     }
 
     updateValues() {
@@ -51,6 +62,7 @@ class HorizontalBarChart {
         this.drawVerticalLines();
         this.drawRects();
         this.drawAxis();
+        this.drawLegend();
         pop()
     }
 
@@ -71,6 +83,7 @@ class HorizontalBarChart {
             noStroke();
             fill(255);
             textSize(16);
+            textStyle(BOLD);
             textAlign(CENTER, BOTTOM);
             text(this.title, this.chartWidth / 2, -this.chartHeight - this.titleSpacing);
         }
@@ -82,7 +95,7 @@ class HorizontalBarChart {
                 textSize(this.categoryFontSize);
                 textAlign(CENTER, CENTER);
                 textStyle(BOLD);
-                rotate(3 * PI / 2);
+                rotate(270);
                 text(this.yAxis, this.chartHeight / 2, -this.yAxisSpacing);
             pop()
         }
@@ -131,7 +144,7 @@ class HorizontalBarChart {
         push();
         translate(0, -this.margin);
         for (let i = 0; i < this.data.length; i++) {
-            let colorNumber = i % 4;
+            let colorNumber = i % 5;
 
             //bars
             fill(this.colors[colorNumber]);
@@ -160,5 +173,23 @@ class HorizontalBarChart {
         }
         pop()
     }
+
+    drawLegend() {
+       
+        push();
+        translate(0, -this.chartHeight);
+        for (let i = 0; i < this.legend.length; i++) {
+            noStroke();
+            textSize(14);
+            textAlign(LEFT, CENTER);
+            fill(this.legend[i].colour)
+            text(this.legend[i].name, this.chartWidth + this.margin, this.tickSpacing * i);
+            ellipse(this.chartWidth + this.margin -10, this.tickSpacing * i, 10, 10)
+        }
+        pop();
+
+        
+    }
+
 
 }

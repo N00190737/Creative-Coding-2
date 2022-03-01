@@ -1,11 +1,10 @@
-class VerticalBarChart {
-    constructor(_data, _legend) {
+class ScatterChart {
+    constructor(_data) {
         this.data = _data;
-        this.legend = _legend;
 
         this.spacing = 10;
         this.margin = 30;
-        this.numTicks = 10;
+        this.numTicks = 7;
         this.posX = 50;
         this.posY = 100;
         this.colors = [
@@ -13,7 +12,6 @@ class VerticalBarChart {
                                     color('#9cecbd'),
                                     color('#eaaf6a'),
                                     color('#fc8980'),
-                                    color('#fdda0d')
                                 ];
         
         this.showValues = true;
@@ -24,12 +22,14 @@ class VerticalBarChart {
         this.numPlaces = 0;
         this.titleSpacing = 25;
         this.labelSpacing = 15;
-        this.yAxis = "Copies Sold (Millions)";
+        this.yAxis = "Price to make (100,000's)";
         this.yAxisSpacing = 65;
         this.labelSize = 14;
-        this.xAxis = "Game Names";
-        this.xAxisSpacing = 100;
+        this.xAxis = "Sales (Millions)";
+        this.xAxisSpacing = 60;
         this.categoryFontSize = 14;
+        this.thumbnailSizeX = 50;
+        this.thumbnailSizeY = 50;
 
         this.chartWidth;
         this.chartHeight;
@@ -38,6 +38,7 @@ class VerticalBarChart {
         this.tickSpacing;
         this.barWidth;
         this.availableWidth;
+        this.currentValue;
 
         this.updateValues();
     }
@@ -51,6 +52,8 @@ class VerticalBarChart {
         let listValues = this.data.map(function(x) { return x.total })
         this.maxValue = max(listValues);
         this.tickIncrements = this.maxValue / this.numTicks;
+
+        this.currentValue = data01.currentValue;
     }
 
     render() {
@@ -59,11 +62,9 @@ class VerticalBarChart {
         translate(this.posX, this.posY);
 
         this.drawTicks();
-        this.drawHorizontalLines();
-        this.drawRects();
+        // this.drawHorizontalLines();
+        // this.drawGames();
         this.drawAxis();
-        // this.drawAverage();
-        this.drawLegend();
         pop()
     }
 
@@ -114,19 +115,33 @@ class VerticalBarChart {
 
     drawTicks() {
         for (let i = 0; i <= this.numTicks; i++) {
-            //ticks
+            //Y ticks
             stroke(255);
             strokeWeight(1)
             line(0, this.tickSpacing * -i, -10, this.tickSpacing * -i);
 
-            //numbers (text)
+            //X ticks
+            stroke(255);
+            strokeWeight(1)
+            line(this.tickSpacing * i, 0, this.tickSpacing * i, 10,);
+
+            //Y numbers (text)
             if (this.showValues) {
                 fill(255, 200);
                 noStroke();
                 textSize(14);
                 textAlign(RIGHT, CENTER);
-                text((i * this.tickIncrements).toFixed(this.numPlaces), -15, this.tickSpacing * -i);
+                text((i * this.currentValue), -15, this.tickSpacing * -i);
             }
+
+            //X numbers (text)
+            if (this.showValues) {
+                fill(255, 200);
+                noStroke();
+                textSize(14);
+                textAlign(CENTER, RIGHT);
+                text((i * this.tickIncrements).toFixed(this.numPlaces), -this.tickSpacing * -i, 30);
+                        }            
         }
     }
 
@@ -142,22 +157,12 @@ class VerticalBarChart {
         }
     }
 
-    // drawAverage() {
-    //     for (let i = 0; i < data01[i].length; i++) {
-            
-    //     }
-    // }
-
     drawRects() {
         push();
         translate(this.margin, 0);
         for (let i = 0; i < this.data.length; i++) {
-            let colorNumber = i % 5;
 
-            //bars
-            fill(this.colors[colorNumber]);
-            noStroke();
-            rect((this.barWidth + this.spacing) * i, 0, this.barWidth, this.scaleData(-this.data[i].total));
+            rect(this.scaleData(-this.data[i].total), this.currentValue, this.thumbnailSizeX, this.thumbnailSizeY)
 
             //numbers (text)
             noStroke();
@@ -189,21 +194,9 @@ class VerticalBarChart {
         pop()
     }
 
-    drawLegend() {
-       
-        push();
-        translate(0, -this.chartHeight);
-        for (let i = 0; i < this.legend.length; i++) {
-            noStroke();
-            textSize(14);
-            textAlign(LEFT, CENTER);
-            fill(this.legend[i].colour)
-            text(this.legend[i].name, this.chartWidth + this.margin, this.tickSpacing * i);
-            ellipse(this.chartWidth + this.margin -10, this.tickSpacing * i, 10, 10)
+    drawGame() {
+        for (let i = 0; i < data.length; i++) {
+
         }
-        pop();
-
-        
-    }
-
+    }    
 }

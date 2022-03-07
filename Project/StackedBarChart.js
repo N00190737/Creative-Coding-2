@@ -21,15 +21,16 @@ class StackedBarChart {
         this.showTitle = true;
         this.rotateLabels = true;
         this.showCategories = true;
+        this.showHorizontialLines = false;
         this.showTicks = true;
         this.numPlaces = 0;
         this.titleSpacing = 25;
         this.labelSpacing = 15;
-        this.yAxis = "Copies Sold Per Year";
-        this.yAxisSpacing = 60;
+        this.yAxis = "Sales";
+        this.yAxisSpacing = 50;
         this.labelSize = 14;
-        this.xAxis = "Game Names";
-        this.xAxisSpacing = 100;
+        this.xAxis = "Years";
+        this.xAxisSpacing = 60;
         this.categoryFontSize = 14;
 
         this.chartWidth;
@@ -132,16 +133,18 @@ class StackedBarChart {
 }
 
     drawHorizontalLines() {
+       if(this.showHorizontialLines){
         for (let i = 0; i <= this.numTicks; i++) {
 
             //horizontal line
             stroke(255, 50);
             strokeWeight(1)
             line(0, this.tickSpacing * -i, this.chartWidth, this.tickSpacing * -i);
-
-
         }
+       }
     }
+
+    
 
     drawRects() {
         push();
@@ -186,14 +189,14 @@ class StackedBarChart {
                     textAlign(RIGHT, CENTER);
                     translate(((this.barWidth + this.spacing) * i) + this.barWidth / 2, 10);
                     rotate(270);
-                    text(this.data[i].name, 0, 0);
+                    text(this.data[i].year, 0, 0);
                     pop()
                 } else {
                     noStroke();
                     fill(255);
                     textSize(this.labelSize);
                     textAlign(CENTER, BOTTOM);
-                    text(this.data[i].name, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, 20);
+                    text(this.data[i].years, ((this.barWidth + this.spacing) * i) + this.barWidth / 2, 20);
                 }
             }
 

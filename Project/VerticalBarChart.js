@@ -19,6 +19,7 @@ class VerticalBarChart {
         this.showValues = true;
         this.showLabels = true;
         this.showTitle = true;
+        this.showHorizontialLines = true;
         this.rotateLabels = true;
         this.showCategories = true;
         this.numPlaces = 0;
@@ -131,16 +132,17 @@ class VerticalBarChart {
     }
 
     drawHorizontalLines() {
-        for (let i = 0; i <= this.numTicks; i++) {
-
-            //horizontal line
-            stroke(255, 50);
-            strokeWeight(1)
-            line(0, this.tickSpacing * -i, this.chartWidth, this.tickSpacing * -i);
-
-
+        if(this.showHorizontialLines){
+         for (let i = 0; i <= this.numTicks; i++) {
+ 
+             //horizontal line
+             stroke(255, 50);
+             strokeWeight(1)
+             line(0, this.tickSpacing * -i, this.chartWidth, this.tickSpacing * -i);
+         }
         }
-    }
+     }
+ 
 
     // drawAverage() {
     //     for (let i = 0; i < data01[i].length; i++) {

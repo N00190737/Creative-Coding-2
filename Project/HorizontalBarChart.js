@@ -21,6 +21,7 @@ class HorizontalBarChart {
         this.showLabels = true;
         this.showTitle = true;
         this.rotateLabels = false;
+        this.showVerticleLines = true
         this.showCategories = true;
         this.numPlaces = 0;
         this.titleSpacing = 25;
@@ -131,14 +132,18 @@ class HorizontalBarChart {
     }
 
     drawVerticalLines() {
+       if(this.showVerticleLines){
         for (let i = 0; i <= this.numTicks; i++) {
 
-            //vertical lines
+            //horizontal line
             stroke(255, 50);
-            strokeWeight(1);
+            strokeWeight(1)
             line(i * this.tickSpacing, 0, this.tickSpacing * i, -this.chartWidth);
         }
+       }
     }
+
+    
 
     drawRects() {
         push();

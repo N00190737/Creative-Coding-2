@@ -211,7 +211,6 @@ let chart01;
 let chart02;
 let chart03;
 let chart04;
-let chart05;
 
 let screenWidth = 1350;
 let screenHeight = 1050;

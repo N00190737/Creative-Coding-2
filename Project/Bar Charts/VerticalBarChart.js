@@ -1,9 +1,11 @@
 class VerticalBarChart {
-    constructor(_data, _legend) {
+    constructor(_data, _legend, _params) {
         this.data = _data;
         this.legend = _legend;
+        this.params = _params;
 
         this.spacing = params.Spacing;
+        
         this.margin = 30;
         this.numTicks = 10;
         this.posX = 50;

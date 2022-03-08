@@ -65,7 +65,6 @@ class GlobalTempChart {
         this.drawHorizontalLines();
         this.drawChart();
         this.drawAxis();
-        // this.drawLegend();
         pop()
     }
 
@@ -127,7 +126,7 @@ class GlobalTempChart {
                 noStroke();
                 textSize(14);
                 textAlign(RIGHT, CENTER);
-                text((i * this.tickIncrements), -15, this.tickSpacing * - i);
+                text((i * this.tickIncrements.toFixed(3)), -15, this.tickSpacing * - i);
             }
         }
     }
@@ -144,6 +143,22 @@ class GlobalTempChart {
         }
      }
 
+     drawLabels() {
+        if (this.showLabels) {
+            if (this.rotateLabels) {
+                push()
+                noStroke();
+                textSize(this.labelSize);
+                textAlign(RIGHT, CENTER);
+                translate(((this.barWidth + this.spacing) * i) + this.barWidth / 2, 10);
+                rotate(270);
+                text(this.data[i].year, 0, 0);
+                pop()
+            }
+        }
+    }
+     
+
      drawChart() {
         push();
         noFill();
@@ -152,26 +167,12 @@ class GlobalTempChart {
         beginShape();
         for (let i = 0; i < this.data.length; i++) {
           vertex(
-            (this.barWidth + this.spacing) * i, this.scaleData(-this.data[i].mean)
+            (this.barWidth + this.spacing) * i, -this.scaleData(this.data[i].mean)
           );
           ellipse(
-            (this.barWidth + this.spacing) * i, this.scaleData(-this.data[i].mean), 3);
+            (this.barWidth + this.spacing) * i, -this.scaleData(this.data[i].mean), 3);
         }
         endShape();
         push();
     }
-
-    // drawLegend() {
-    //     push();
-    //     translate(0, -this.chartHeight);
-    //     for (let i = 0; i < this.legend.length; i++) {
-    //         noStroke();
-    //         textSize(14);
-    //         textAlign(LEFT, CENTER);
-    //         fill(this.legend[i].colour)
-    //         text(this.legend[i].name, this.chartWidth + this.margin, this.tickSpacing * i);
-    //         ellipse(this.chartWidth + this.margin -10, this.tickSpacing * i, 10, 10)
-    //     }
-    //     pop();
-    // }
 }
